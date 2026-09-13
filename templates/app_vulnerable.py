@@ -138,3 +138,25 @@ def dashboard():
         failed=failed,
         vulnerable=True
     )
+
+
+# ------------------------------------------------------------------
+# ROUTE 3: TRANSACTIONS (NO SESSION CHECK — BROKEN AUTHENTICATION)
+# ------------------------------------------------------------------
+@app.route("/transactions")
+def transactions():
+    # VULNERABILITY 3 (again): No session check.
+    # Anyone can access all transaction records directly
+    # by navigating to http://localhost:5000/transactions
+    # without ever logging in.
+ 
+    conn = get_db()
+    cur = conn.cursor()
+    rows = cur.execute("SELECT * FROM transactions").fetchall()
+    conn.close()
+ 
+    return render_template(
+        "transactions.html",
+        transactions=rows,
+        vulnerable=True
+    )

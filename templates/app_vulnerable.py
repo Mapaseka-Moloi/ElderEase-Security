@@ -109,3 +109,32 @@ def login():
             error = "Invalid username or password."
  
     return render_template("login.html", error=error)
+
+
+# ------------------------------------------------------------------
+# ROUTE 2: DASHBOARD (NO SESSION CHECK — BROKEN AUTHENTICATION)
+# ------------------------------------------------------------------
+@app.route("/dashboard")
+def dashboard():
+    # VULNERABILITY 3: BROKEN AUTHENTICATION
+    # There is NO check here that the user is actually logged in.
+    # Anyone can type http://localhost:5000/dashboard directly
+    # into their browser and access this page without credentials.
+ 
+    conn = get_db()
+    cur = conn.cursor()
+    total = cur.execute("SELECT COUNT(*) FROM transactions").fetchone()[0]
+    elderly = cur.execute("SELECT COUNT(*) FROM transactions WHERE sender_age >= 60").fetchone()[0]
+    failed = cur.execute("SELECT COUNT(*) FROM transactions WHERE status = 'Failed'").fetchone()[0]
+    conn.close()
+ 
+    username = session.get("user", "Unknown (not logged in)")
+ 
+    return render_template(
+        "dashboard.html",
+        username=username,
+        total=total,
+        elderly=elderly,
+        failed=failed,
+        vulnerable=True
+    )

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ElderEase — Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        .navbar {
+            background: #d9534f;
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 { margin: 0; font-size: 20px; }
+        .navbar a { color: white; text-decoration: none; font-size: 14px; }
+        .container { padding: 32px; max-width: 900px; margin: auto; }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .card h3 { margin-top: 0; color: #333; }
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            border-left: 4px solid #d9534f;
+            padding: 16px 24px;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 150px;
+        }
+        .stat-box .number { font-size: 32px; font-weight: bold; color: #d9534f; }
+        .stat-box .label { font-size: 13px; color: #666; margin-top: 4px; }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #d9534f;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn:hover { background: #c9302c; }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🏠 ElderEase Admin Dashboard</h1>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="container">
+        {% if vulnerable %}
+        <div class="warning">
+            ⚠️ <strong>VULNERABLE VERSION</strong> — This app has security vulnerabilities for demonstration purposes only.
+        </div>
+        <br>
+        {% endif %}
+
+        <div class="card">
+            <h3>Welcome, {{ username }}</h3>
+            <p>You are logged into the ElderEase transaction management system.</p>
+            <a href="/transactions" class="btn">View All Transactions</a>
+        </div>
+
+        <div class="card">
+            <h3>System Overview</h3>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number">{{ total }}</div>
+                    <div class="label">Total Transactions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ elderly }}</div>
+                    <div class="label">Elderly Senders</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">{{ failed }}</div>
+                    <div class="label">Failed Transactions</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

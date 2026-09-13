@@ -54,3 +54,19 @@ def get_db():
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
     return conn
+
+
+# ------------------------------------------------------------------
+# ROUTE 1: LOGIN (VULNERABLE TO SQL INJECTION)
+# ------------------------------------------------------------------
+@app.route("/", methods=["GET", "POST"])
+def login():
+    error = None
+ 
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+ 
+        conn = get_db()
+        cur = conn.cursor()
+ 

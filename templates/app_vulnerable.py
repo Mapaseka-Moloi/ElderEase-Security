@@ -70,3 +70,23 @@ def login():
         conn = get_db()
         cur = conn.cursor()
  
+
+        # VULNERABILITY 1: SQL INJECTION
+        # We are building the query by jamming the user's input
+        # directly into the SQL string using an f-string.
+        # Whatever the user types becomes part of the SQL command.
+        #
+        # Normal login:
+        #   username = admin, password = password123
+        #   query = "SELECT * FROM users WHERE username = 'admin'
+        #            AND password = 'password123'"
+        #
+        # SQL injection attack:
+        #   username = ' OR '1'='1' --
+        #   password = anything
+        #   query = "SELECT * FROM users WHERE username = ''
+        #            OR '1'='1' --' AND password = 'anything'"
+        #   The -- comments out the rest of the query.
+        #   '1'='1' is always true, so the WHERE clause is always
+        #   true, so the database returns ALL users — and the
+        #   attacker is logged in as the first one.

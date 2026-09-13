@@ -1,5 +1,3 @@
-
-App vulnerable · PY
 """
 VULNERABLE VERSION — ElderEase Admin App
 =========================================

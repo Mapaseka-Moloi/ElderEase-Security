@@ -90,3 +90,22 @@ def login():
         #   '1'='1' is always true, so the WHERE clause is always
         #   true, so the database returns ALL users — and the
         #   attacker is logged in as the first one.
+
+        query = f"""
+            SELECT * FROM users
+            WHERE username = '{username}'
+            AND password = '{password}'
+        """
+ 
+        print(f"\n[VULNERABLE] Query executed:\n{query}\n")
+ 
+        user = cur.execute(query).fetchone()
+        conn.close()
+ 
+        if user:
+            session["user"] = username
+            return redirect(url_for("dashboard"))
+        else:
+            error = "Invalid username or password."
+ 
+    return render_template("login.html", error=error)

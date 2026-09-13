@@ -41,3 +41,16 @@ Never use this code in a real system.
 Run on localhost only, never deploy to the internet.
 """
 
+
+from flask import Flask, request, redirect, url_for, render_template, session
+import sqlite3
+ 
+app = Flask(__name__)
+app.secret_key = "notsecret"  # VULNERABILITY: weak secret key
+ 
+DB = "elderease_vulnerable.db"
+ 
+def get_db():
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    return conn

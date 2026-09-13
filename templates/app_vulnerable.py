@@ -168,3 +168,21 @@ def transactions():
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+
+# ------------------------------------------------------------------
+# RUN
+# ------------------------------------------------------------------
+if __name__ == "__main__":
+    print("=" * 55)
+    print("  ELDEREASE VULNERABLE APP — FOR DEMO PURPOSES ONLY")
+    print("  Running at: http://localhost:5000")
+    print("=" * 55)
+    print("\nKnown vulnerabilities in this version:")
+    print("  1. SQL Injection on the login form")
+    print("  2. Passwords stored in plain text")
+    print("  3. No session checks on protected routes")
+    print("\nTo demonstrate SQL injection, use this as username:")
+    print("  ' OR '1'='1' --")
+    print("  (any password will work)\n")
+    app.run(debug=True, port=5000)

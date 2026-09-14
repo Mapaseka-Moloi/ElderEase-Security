@@ -26,3 +26,8 @@ Step 2: Show normal login works
 Username: admin
 Password: password123
 ✅ Login succeeds — show the dashboard
+
+Step 3: Log out, then demonstrate the attack
+Username: ' OR 1=1 --
+Password: wrongpassword
+✅ Login succeeds WITHOUT a valid password

@@ -44,3 +44,18 @@ def get_db():
 
 def is_logged_in():
     return "user" in session
+
+
+# ------------------------------------------------------------------
+# ROUTE 1: LOGIN (FIXED — PARAMETERISED QUERIES + BCRYPT)
+# ------------------------------------------------------------------
+@app.route("/", methods=["GET", "POST"])
+def login():
+    error = None
+ 
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+ 
+        conn = get_db()
+        cur = conn.cursor()

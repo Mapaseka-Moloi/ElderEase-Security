@@ -71,4 +71,19 @@ Output will show:
 ('staff', 'letmein')
 ('manager', 'admin2024')
 
+Step 2: Show the secure database (hashed passwords)
+bash
+python -c "
+import sqlite3
+conn = sqlite3.connect('elderease_secure.db')
+rows = conn.execute('SELECT username, password_hash FROM users').fetchall()
+for row in rows:
+    print(row[0], row[1][:40], '...')
+conn.close()
+"
 
+Output will show:
+
+admin $2b$12$YPQ6lfv9sek/H/ixlr1PT. ...
+staff $2b$12$wdp5Lbpd4HMoQ1PZTxYpCe ...
+manager $2b$12$DoUIKv/Nnibdoc40WZ10G ...

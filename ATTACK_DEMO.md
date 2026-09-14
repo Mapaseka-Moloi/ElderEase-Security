@@ -21,3 +21,8 @@ ATTACK 1 — SQL Injection
 Step 1: Run the vulnerable app
 bash
 python app_vulnerable.py
+
+Step 2: Show normal login works
+Username: admin
+Password: password123
+✅ Login succeeds — show the dashboard

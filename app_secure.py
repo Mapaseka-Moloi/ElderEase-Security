@@ -123,4 +123,26 @@ def dashboard():
         failed=failed,
         vulnerable=False
     )
+
+ 
+# ------------------------------------------------------------------
+# ROUTE 3: TRANSACTIONS (FIXED — SESSION CHECK)
+# ------------------------------------------------------------------
+@app.route("/transactions")
+def transactions():
+    # FIX 3: SESSION CHECK
+    # Unauthenticated users cannot access transaction data.
+    if not is_logged_in():
+        return redirect(url_for("login"))
+ 
+    conn = get_db()
+    cur = conn.cursor()
+    rows = cur.execute("SELECT * FROM transactions").fetchall()
+    conn.close()
+ 
+    return render_template(
+        "transactions.html",
+        transactions=rows,
+        vulnerable=False
+    )
  

@@ -104,3 +104,9 @@ bash
 python app_secure.py
 Without logging in, go to http://localhost:5000/transactions
 ❌ Immediately redirected back to the login page
+
+SUMMARY TABLE (show this at the end)
+Vulnerability	Attack	Fix Applied
+SQL Injection	' OR 1=1 -- bypasses login	Parameterised queries
+Data Exposure	Plain text passwords readable	Bcrypt hashing
+Broken Auth	Direct URL access without login	Session checks

@@ -153,3 +153,25 @@ def transactions():
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+
+# ------------------------------------------------------------------
+# RUN
+# ------------------------------------------------------------------
+if __name__ == "__main__":
+    print("=" * 55)
+    print("  ELDEREASE SECURE APP")
+    print("  Running at: http://localhost:5000")
+    print("=" * 55)
+    print("\nSecurity fixes applied in this version:")
+    print("  1. Parameterised queries — SQL injection blocked")
+    print("  2. Bcrypt password hashing — no plain text passwords")
+    print("  3. Session checks on all protected routes")
+    print("\nValid login credentials:")
+    print("  Username: admin")
+    print("  Password: password123")
+    print("\nTry the SQL injection attack — it will FAIL:")
+    print("  Username: ' OR 1=1 --")
+    print("  Password: anything\n")
+    app.run(debug=True, port=5000)
+ 

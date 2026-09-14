@@ -95,3 +95,32 @@ def login():
         error = "Invalid username or password."
  
     return render_template("login.html", error=error)
+
+
+# ------------------------------------------------------------------
+# ROUTE 2: DASHBOARD (FIXED — SESSION CHECK)
+# ------------------------------------------------------------------
+@app.route("/dashboard")
+def dashboard():
+    # FIX 3: SESSION CHECK
+    # If the user is not logged in, redirect to login immediately.
+    # The page content is never shown to unauthenticated users.
+    if not is_logged_in():
+        return redirect(url_for("login"))
+ 
+    conn = get_db()
+    cur = conn.cursor()
+    total = cur.execute("SELECT COUNT(*) FROM transactions").fetchone()[0]
+    elderly = cur.execute("SELECT COUNT(*) FROM transactions WHERE sender_age >= 60").fetchone()[0]
+    failed = cur.execute("SELECT COUNT(*) FROM transactions WHERE status = 'Failed'").fetchone()[0]
+    conn.close()
+ 
+    return render_template(
+        "dashboard.html",
+        username=session["user"],
+        total=total,
+        elderly=elderly,
+        failed=failed,
+        vulnerable=False
+    )
+ 

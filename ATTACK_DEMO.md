@@ -41,3 +41,11 @@ sql
 SELECT * FROM users WHERE username = '' OR 1=1 --' AND password = 'wrongpassword'
 
 Explain: 1=1 is always true, -- comments out the password check. The database returned a user without checking the password at all.
+
+Step 5: Switch to the secure app and show it's blocked
+bash
+# Ctrl+C to stop vulnerable app, then:
+python app_secure.py
+Username: ' OR 1=1 --
+Password: wrongpassword
+❌ Login fails — "Invalid username or password"

@@ -97,3 +97,10 @@ Make sure you are logged OUT (or open an incognito window)
 Type directly into the browser address bar:
 http://localhost:5000/transactions
 ✅ You can see ALL transaction data without ever logging in
+
+Step 3: Switch to secure app and show it's blocked
+bash
+# Ctrl+C, then:
+python app_secure.py
+Without logging in, go to http://localhost:5000/transactions
+❌ Immediately redirected back to the login page

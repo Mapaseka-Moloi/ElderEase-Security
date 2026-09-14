@@ -68,3 +68,30 @@ def login():
         # ' OR 1=1 -- typed as a username becomes the literal
         # string "' OR 1=1 --" — it won't match any username,
         # so the query returns nothing and login fails.
+        cur.execute(
+            "SELECT * FROM users WHERE username = ?",
+            (username,)
+        )
+        user = cur.fetchone()
+        conn.close()
+ 
+        if user:
+            # FIX 2: BCRYPT PASSWORD CHECK
+            # We never compare plain text passwords.
+            # bcrypt.checkpw() hashes the entered password and
+            # compares it to the stored hash — if they match,
+            # the password is correct. The original password
+            # is never stored anywhere.
+            stored_hash = dict(user)["password_hash"].encode("utf-8")
+            password_correct = bcrypt.checkpw(
+                password.encode("utf-8"),
+                stored_hash
+            )
+ 
+            if password_correct:
+                session["user"] = dict(user)["username"]
+                return redirect(url_for("dashboard"))
+ 
+        error = "Invalid username or password."
+ 
+    return render_template("login.html", error=error)

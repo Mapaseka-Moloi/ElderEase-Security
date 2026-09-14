@@ -87,3 +87,13 @@ Output will show:
 admin $2b$12$YPQ6lfv9sek/H/ixlr1PT. ...
 staff $2b$12$wdp5Lbpd4HMoQ1PZTxYpCe ...
 manager $2b$12$DoUIKv/Nnibdoc40WZ10G ...
+
+ATTACK 3 — Broken Authentication
+Step 1: Run the vulnerable app (if not already running)
+bash
+python app_vulnerable.py
+Step 2: Demonstrate direct URL access WITHOUT logging in
+Make sure you are logged OUT (or open an incognito window)
+Type directly into the browser address bar:
+http://localhost:5000/transactions
+✅ You can see ALL transaction data without ever logging in

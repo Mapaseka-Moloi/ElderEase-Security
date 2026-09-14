@@ -41,3 +41,6 @@ def get_db():
  
 # FIX 3: a reusable helper that checks if the user is logged in
 # we call this at the top of every protected route
+
+def is_logged_in():
+    return "user" in session

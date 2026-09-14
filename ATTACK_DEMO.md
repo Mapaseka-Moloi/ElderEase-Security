@@ -49,3 +49,26 @@ python app_secure.py
 Username: ' OR 1=1 --
 Password: wrongpassword
 ❌ Login fails — "Invalid username or password"
+
+ATTACK 2 — Sensitive Data Exposure
+Step 1: Show the vulnerable database (plain text passwords)
+
+Open a new terminal and run:
+
+bash
+python -c "
+import sqlite3
+conn = sqlite3.connect('elderease_vulnerable.db')
+rows = conn.execute('SELECT username, password FROM users').fetchall()
+for row in rows:
+    print(row)
+conn.close()
+"
+
+Output will show:
+
+('admin', 'password123')
+('staff', 'letmein')
+('manager', 'admin2024')
+
+

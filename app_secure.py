@@ -59,3 +59,12 @@ def login():
  
         conn = get_db()
         cur = conn.cursor()
+
+
+        # FIX 1: PARAMETERISED QUERY
+        # The ? placeholder is filled in safely by SQLite itself.
+        # Whatever the user types is treated as a plain text value,
+        # never as executable SQL code.
+        # ' OR 1=1 -- typed as a username becomes the literal
+        # string "' OR 1=1 --" — it won't match any username,
+        # so the query returns nothing and login fails.

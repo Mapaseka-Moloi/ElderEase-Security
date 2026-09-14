@@ -24,3 +24,20 @@ Every protected route now checks that the user is actually
 logged in before allowing access. If not logged in, they
 are redirected back to the login page immediately.
 """
+
+
+from flask import Flask, request, redirect, url_for, render_template, session
+import sqlite3
+import bcrypt
+ 
+app = Flask(__name__)
+app.secret_key = "elderease-super-secret-key-2025-not-guessable"
+DB = "elderease_secure.db"
+ 
+def get_db():
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    return conn
+ 
+# FIX 3: a reusable helper that checks if the user is logged in
+# we call this at the top of every protected route

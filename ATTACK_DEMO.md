@@ -16,3 +16,8 @@ python setup_db.py
 #    Tab 2: ready to run app_secure.py
 
 Open your browser at http://localhost:5000
+
+ATTACK 1 — SQL Injection
+Step 1: Run the vulnerable app
+bash
+python app_vulnerable.py

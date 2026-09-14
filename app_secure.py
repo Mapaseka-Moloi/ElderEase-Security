@@ -145,4 +145,11 @@ def transactions():
         transactions=rows,
         vulnerable=False
     )
- 
+
+# ------------------------------------------------------------------
+# ROUTE 4: LOGOUT
+# ------------------------------------------------------------------
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
